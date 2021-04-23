@@ -11,10 +11,6 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
           pip install -r requirements.txt
-          dvc repro 
-          git fetch --prune
-          dvc metrics diff --show-md master > report.md
-          # Add figure to the report
-          echo "## Validating results by region"
-          cml-publish by_region.png --md >> report.md
-          cml-send-comment report.md 
+          python train.py
+          echo "MODEL METRICS"
+          cat metrics.txt
